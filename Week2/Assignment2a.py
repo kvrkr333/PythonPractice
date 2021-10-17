@@ -10,11 +10,13 @@ class HasWeight(ABC):
 
 class Astronaut(HasWeight):
     def __init__(self, weight: int):
-        pass  # TODO assignment 2
+        if not 50 <= weight <= 95:
+            raise ValueError("Astronaut weight must be between 50 and 95 kg")
+        self._weight = weight
 
     @property
     def weight(self) -> int:
-        pass  # TODO assignment 2
+        return self._weight
 
 
 class Propellant(HasWeight):
@@ -31,36 +33,40 @@ class Propellant(HasWeight):
 
 class AmmoniumDinitramide(Propellant):
     def __init__(self, weight: int):
-        pass  # TODO assignment 2
+        if not 0 < weight <= 200:
+            raise ValueError("Propellant weight must be between 1 and 200 kg")
+        self._weight = weight
 
     @property
     def weight(self) -> int:
-        pass  # TODO assignment 2
+        return self._weight
 
     @property
     def efficiency(self) -> int:
-        pass  # TODO assignment 2
+        return 3
 
     @property
     def emission(self) -> int:
-        pass  # TODO assignment 2
+        return 3
 
 
 class Hydrazine(Propellant):
     def __init__(self, weight: int):
-        pass  # TODO assignment 2
+        if not 0 < weight <= 200:
+            raise ValueError("Propellant weight must be between 1 and 200 kg")
+        self._weight = weight
 
     @property
     def weight(self) -> int:
-        pass  # TODO assignment 2
+        return self._weight
 
     @property
     def efficiency(self) -> int:
-        pass  # TODO assignment 2
+        return 10
 
     @property
     def emission(self) -> int:
-        pass  # TODO assignment 2
+        return 20
 
 
 class Rocket(HasWeight):
@@ -81,10 +87,12 @@ class Rocket(HasWeight):
         return self._max_weight
 
     def add_astronaut(self, astronaut: Astronaut):
-        pass  # TODO assignment 2
+        self._weight += astronaut.weight
 
     def add_propellant(self, propellant: Propellant):
-        pass  # TODO assignment 2
+        self._weight += propellant.weight
+        self._environmental_impact += propellant.emission * propellant.weight
+        self._capacity += propellant.efficiency * propellant.weight
 
     def launch(self):
         if self._weight <= min(self._max_weight, self._capacity):
